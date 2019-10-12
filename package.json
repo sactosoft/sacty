@@ -1,0 +1,44 @@
+{
+	"name": "sacty",
+	"version": "0.148.0",
+	"description": "HTML-spiced javascript for DOM creation and manipulation",
+	"main": "index.js",
+	"scripts": {
+		"dist": "gulp dist",
+		"test": "node ./test.js",
+		"test-open": "node ./test.js && start ./_test/index.html",
+		"lint": "eslint ./src"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/sactory/sactory.git"
+	},
+	"keywords": [
+		"sactory",
+		"html",
+		"xml",
+		"dom"
+	],
+	"author": "Mark White",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/sactory/sactory/issues"
+	},
+	"homepage": "https://github.com/sactory/sactory",
+	"devDependencies": {
+		"babel-core": "^6.26.3",
+		"babel-preset-env": "^1.7.0",
+		"eslint": "^6.3.0",
+		"event-stream": "^4.0.1",
+		"gulp": "^4.0.2",
+		"gulp-append-prepend": "^1.0.8",
+		"gulp-babel": "^7.0.1",
+		"gulp-clone": "^2.0.1",
+		"gulp-concat": "^2.6.1",
+		"gulp-nop": "0.0.3",
+		"gulp-rename": "^1.4.0",
+		"gulp-replace": "^1.0.0",
+		"gulp-sourcemaps": "^2.6.5",
+		"gulp-terser": "^1.2.0"
+	}
+}
