@@ -871,14 +871,26 @@ Transpiler.prototype.open = function(){
 					}
 				}
 
+				// mapping for references
+				const refMap = ref => this.options.es6 ? `${this.value} => ${ref}=${this.value}` : `function(${this.value}){${ref}=${this.value}}.bind(this)`;
+				const refPushMap = ref => this.options.es6 ? `${this.value} => ${ref}.push(${this.value})` : `function(${this.value}){${ref}.push(${this.value})}.bind(this)`;
+
 				// assign references
-				if(dattributes.ref) {
-					before.push([this.chainFeature("ref"), ...[].concat(dattributes.ref).map(ref => this.options.es6 ? `${this.value} => ${ref}=${this.value}` : `function(${this.value}){${ref}=${this.value}}.bind(this)`)]);
+				if(dattributes.ref || attributes["ref-push"] || dattributes.refp) {
+					before.push([
+						this.chainFeature("ref"),
+						...[].concat(dattributes.ref || []).map(refMap),
+						...[].concat(dattributes["ref-push"] || []).concat(dattributes.refp || []).map(refPushMap)
+					]);
 				}
 
 				// assign widget references
-				if(dattributes["ref-widget"]) {
-					before.push([this.chainFeature("refWidget"), ...[].concat(dattributes["ref-widget"]).map(ref => this.options.es6 ? `${this.value} => ${ref}=${this.value}` : `function(${this.value}){${ref}=${this.value}}.bind(this)`)]);
+				if(dattributes["ref-widget"] || dattributes.refw || dattributes["ref-push-widget"] || dattributes.refpw) {
+					before.push([
+						this.chainFeature("refWidget"),
+						...[].concat(dattributes["ref-widget"] || []).concat(dattributes.refw || []).map(refMap),
+						...[].concat(dattributes["ref-push-widget"] || []).concat(dattributes.refpw || []).map(refPushMap)
+					]);
 				}
 
 				// apply forms
