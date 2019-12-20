@@ -895,12 +895,15 @@ Transpiler.prototype.open = function(){
 
 				// apply forms
 				if(forms.length) {
-					after.push([this.chainFeature("bind"), forms.map(({type, info, value, ref}) => {
+					after.push([this.chainFeature("bind"), forms.map(({type, info, value, ref, computed}) => {
 						let data = [`"${type}"`, info, value];
 						if(this.options.es6) {
 							data.push(`${this.value} => {${ref}=${this.value}}`);
 						} else {
 							data.push(`function(${this.value}){${ref}=${this.value}}.bind(this)`);
+						}
+						if(value.charAt(0) === this.runtime) {
+							data.push(1);
 						}
 						return `[${data.join(", ")}]`;
 					}).join(", ")]);

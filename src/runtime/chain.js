@@ -378,7 +378,14 @@ chain.body = function(context, fun){
  */
 chain.bind = function(context){
 	var element = context.input || context.content;
-	Array.prototype.slice.call(arguments, 1).forEach(([type, info, value, update]) => {
+	Array.prototype.slice.call(arguments, 1).forEach(([type, info, value, update, isComputed]) => {
+		if(isComputed) {
+			const impl = update;
+			update = v => {
+				value.value = v;
+				impl(v);
+			};
+		}
 		// look for widget's custom binding in registry
 		const widget = context.registry.widgets.main;
 		if(widget) {
