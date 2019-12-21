@@ -78,7 +78,7 @@ Observable.prototype.subscribeImpl = function(context, subscription){
  * @since 0.129.0
  */
 Observable.prototype.subscribe = function(context, callback, type){
-	this.subscribeImpl(context, new Subscription(this, callback, type));
+	return this.subscribeImpl(context, new Subscription(this, callback, type));
 };
 
 /**
